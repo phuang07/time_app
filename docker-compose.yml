@@ -1,32 +1,75 @@
 version: "3.7"
+networks:
+  static-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 173.20.1.0/24
+        # gateway: 10.5.0.1
+          #docker-compose v3+ do not use ip_range
+        #   ip_range: 172.28.5.0/24            
 services:
     user_server:
-        image: leoman730/dns_app_us
+        # image: leoman730/dns_app_us    
+        build: US/
         ports:
             - 8080:8080
-        # volumes:
-        #     - .:/app
+        networks:
+            static-network:
+                ipv4_address:  173.20.1.10          
         command: >
             sh -c "
               python user_server.py
 
             "
     fs_server:
-        image: leoman730/dns_app_fs
+        # image: leoman730/dns_app_fs
+        build: FS/
+        container_name: 'fibonacci_server_1'
         ports:
             - 9090:9090
-        # volumes:
-        #     - .:/app
+        networks:
+            static-network:
+                ipv4_address:  173.20.1.11         
+        command: >
+            sh -c "
+              python fibonacci_server.py
+            "
+    fs_server_2:
+        # image: leoman730/dns_app_fs
+        build: FS/
+        hostname: 'fibonacci2.com'
+        ports:
+            - 9292:9090
+        networks:
+            static-network:
+                ipv4_address:  173.20.1.12
+        command: >
+            sh -c "
+              python fibonacci_server.py
+            "
+    fs_server_3:
+        build: FS/
+        # image: leoman730/dns_app_fs
+        hostname: 'fibonacci3.com'
+        container_name: 'fibonacci_server_3'
+        ports:
+            - 9393:9090
+        networks:
+            static-network:
+                ipv4_address:  173.20.1.13
         command: >
             sh -c "
               python fibonacci_server.py
             "
     as_server:
-        image: leoman730/dns_app_as
+        build: AS/
+        # image: leoman730/dns_app_as
         ports:
             - 53533:53533/udp
-        # volumes:
-        #     - .:/app
+        networks:
+            static-network:
+                ipv4_address:  173.20.1.14
         command: >
             sh -c "
               python authoritative_server.py

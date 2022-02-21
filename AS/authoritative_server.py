@@ -48,7 +48,8 @@ def create_db():
         connection.executescript(f.read())
 
 def start_udp_server():
-    localIP     = "127.0.0.1"
+    # localIP     = "127.0.0.1"
+    localIP     = "0.0.0.0"
     localPort   = 53533
     bufferSize  = 1024
     msgFromServer       = "Hello UDP Client"
