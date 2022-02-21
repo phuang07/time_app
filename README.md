@@ -50,8 +50,8 @@ user_server_1  |  * Running on http://173.20.1.10:8080/ (Press CTRL+C to quit)
 Then run:
 
 ```
-─rayhuang at mbp16 in ⌁/git_repos/data-comm (dns_app ✚5)
-╰─λ ./run.sh                                                                                                                                                      
+╭─rayhuang at mbp16 in ⌁/git_repos/data-comm (dns_app ✚1)
+╰─λ ./run.sh                                                                                                                                                                                                     
 Regeter Fibonacci Servers
 DNS record created:
 ========
@@ -80,7 +80,7 @@ TTL=10
 Get fibonacci number 9 from fibonacci.com
 34
 Get fibonacci number 6 from finboacci2.com
-34
-Get fibonacci number 4 from finboacci3.com
 8
+Get fibonacci number 4 from finboacci3.com
+3
 ```
