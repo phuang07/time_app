@@ -8,7 +8,7 @@ RUN apt-get update && \
     apt-get clean -y
 
 # Create a user for development
-ARG USERNAME=devops
+ARG USERNAME=user
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
@@ -20,6 +20,8 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
 COPY . /app
+RUN chown -R user:user /app
+# RUN chmod 777 /app/dns.db
 
 WORKDIR /app
 
@@ -33,7 +35,7 @@ RUN python -m pip install --upgrade pip && \
 # Enable color terminal for docker exec bash
 ENV TERM=xterm-256color
 
-EXPOSE 53533
+EXPOSE 53533/udp
 
 # Become a regular user for development
 USER $USERNAME
