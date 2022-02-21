@@ -19,21 +19,15 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
-COPY . /app
-
-WORKDIR /app
-
 # Set up the Python development environment
+WORKDIR /app
 RUN python -m pip install --upgrade pip && \
-    pip install --upgrade wheel && \
-    pip install -r requirements.txt
-
-
+    pip install --upgrade wheel
 
 # Enable color terminal for docker exec bash
 ENV TERM=xterm-256color
 
-# EXPOSE 5000 9090 53533 8080
+EXPOSE 5000 9090 53533 8080
 
 # Become a regular user for development
 USER $USERNAME

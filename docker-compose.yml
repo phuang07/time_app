@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+    user_server:
+        image: leoman730/sample-as
+        ports:
+            - 8080:8080
+        volumes:
+            - .:/app
+        command: >
+            sh -c "
+              python user_server.py
+
+            "
+    fs_server:
+        image: leoman730/sample-as
+        ports:
+            - 9090:9090
+        volumes:
+            - .:/app
+        command: >
+            sh -c "
+              python fibonacci_server.py
+            "
+    as_server:
+        image: leoman730/sample-as
+        ports:
+            - 53533:53533/udp
+        volumes:
+            - .:/app
+        command: >
+            sh -c "
+              python authoritative_server.py
+            "

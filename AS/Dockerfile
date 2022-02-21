@@ -33,7 +33,9 @@ RUN python -m pip install --upgrade pip && \
 # Enable color terminal for docker exec bash
 ENV TERM=xterm-256color
 
-# EXPOSE 5000 9090 53533 8080
+EXPOSE 53533
 
 # Become a regular user for development
 USER $USERNAME
+
+ENTRYPOINT [ "python", "authoritative_server.py" ]
